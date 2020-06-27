@@ -2,17 +2,22 @@
 Repository for team 5 projects.
 
 ## Data set
-This data was extracted from the https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
+This data was extracted from the https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data.
 
 ## Project 1
 
 |  #  |      Title     |   Solutions   | Issues              
 |-----|----------------|---------------|-------------
-|1|[SVM](https://leetcode.com/problems/minimum-area-rectangle/)|[Solution](../master/src/main/java/com/cuongnm92/leetcode/algorithm/problems/MinimumAreaRectangle.java) |Medium||
+|1|[EAD]|[Code](../master/proj1/proj1_eda.ipynb) ||
+|1|[SVM]|[Code](../master/proj1/svm.ipynb) ||
 
-## Authors
-* **Cuong** - [cuongnm92](http://cuongnm92.com)
+## Team members
+* **Manh Cuong Nguyen**
+* **Le Chi Nhan Ngo**
+* **Thanh Dat Vo**
+* **Huu Kim Hanh Nguyen**
+* **Mohamed Hussein Abdelhalim Mohamed**
 
-## Best way to open this project
-1. Clone this repo
-2. Import to Eclipse
+## open this project
+1. Import to Kaggle NoteBook
+2. Use google colab https://colab.research.google.com/ 
