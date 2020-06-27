@@ -1,0 +1,8 @@
+version: "2.0"
+services:
+    mybook:
+        image: 'jupyter/scipy-notebook'
+        ports:
+            - 8881:8888
+        volumes:
+            - ./share:/share
