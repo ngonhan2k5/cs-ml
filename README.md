@@ -17,6 +17,7 @@ This data was extracted from the https://archive.ics.uci.edu/ml/machine-learning
 * **Thanh Dat Vo**
 * **Huu Kim Hanh Nguyen**
 * **Mohamed Hussein Abdelhalim Mohamed**
+* **Henok Gebremenfes**
 
 ## open this project
 1. Import to Kaggle NoteBook
