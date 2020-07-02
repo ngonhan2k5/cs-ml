@@ -132,9 +132,9 @@ if parser.parse_args().vote != None:
                 printList(votes)
                 voteToCSV(votes, uid)
         else:
-            print('Your vote question is empty, please check and maybe you must do manualy')
+            print('Your vote questions is empty, please check and maybe you must do manually')
     else:
-        print('Sorry, Student id not found. Recheck again and maybe you must do manualy')
+        print('Sorry, Student id not found. Recheck again and maybe you must do manually')
 
 if parser.parse_args().quest == None and parser.parse_args().vote == None:
     print('Nothing TODO')
