@@ -105,9 +105,14 @@ def inputVote(qid):
         
 
 def printList(lst):
-    l = lst
-    for s in l: 
+    for s in lst: 
         print(s)
+
+def printListasCSV(lst):
+    for s in lst: 
+        s = list(map(lambda x: str(x), s))
+        print(','.join(s))
+
 
 # main
 parser = argparse.ArgumentParser()
@@ -131,7 +136,7 @@ if parser.parse_args().vote != None:
         if len(Q.assigment[uid])> 0 :
             votes = Q.doVote(uid)
             if (len(votes)>0):
-                printList(votes)
+                printListasCSV(votes)
                 voteToCSV(votes, uid)
         else:
             print('Your vote questions is empty, please check and maybe you must do manually')
