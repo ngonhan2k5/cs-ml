@@ -67,6 +67,7 @@ class Quest:
         self.votes = []
         # printList(self.assigment[stuid])
         for i in self.assigment[stuid]:
+            print('===================================================================================')
             printList(self.getQuestion(i-1))
             v = inputVote(i)
             if v == 'q':
@@ -92,6 +93,7 @@ def voteToCSV(votes, filename):
         voteToCSV(votes, filename+'_')
     
 def inputVote(qid):
+    print('===================================================================================')
     v = input('Vote 0-5 (q to quit): ')
     if v.isdigit():
         v = int(v)
