@@ -92,10 +92,10 @@ def voteToCSV(votes, filename):
         voteToCSV(votes, filename+'_')
     
 def inputVote(qid):
-    v = input('Vote 1-5 (q to quit): ')
+    v = input('Vote 0-5 (q to quit): ')
     if v.isdigit():
         v = int(v)
-        if v in range(1,6):
+        if v in range(0,6):
             return [qid, v]
     elif v == 'q':
         return v
