@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-import csv,argparse
-import re
+#######################################################
+# Ex: python yourvote.py Questions.txt --vote XXXXXX  #
+#######################################################
+import csv, argparse, re
 
 class Quest:
     def __init__(self, filePath):
@@ -30,6 +32,7 @@ class Quest:
                 lst[i] = ''
             i += 1
         return self.clean(lst)
+    
     # map assigment in to dict of student
     def processAsgn(self, lst):
         ret = {}
@@ -109,7 +112,6 @@ parser = argparse.ArgumentParser()
 parser.add_argument("filePath", help="path to Question.txt file, -h to help ")
 parser.add_argument("--quest", metavar='questionId', help="Question by id ")
 parser.add_argument("--vote", metavar='studentId', help="Student id to Vote")
-
 
 Q = Quest(parser.parse_args().filePath)
 
