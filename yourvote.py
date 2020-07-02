@@ -109,7 +109,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("filePath", help="path to Question.txt file, -h to help ")
 parser.add_argument("--quest", metavar='questionId', help="Question by id ")
 parser.add_argument("--vote", metavar='studentId', help="Student id to Vote")
-parser.
+
 
 Q = Quest(parser.parse_args().filePath)
 
