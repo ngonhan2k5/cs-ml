@@ -123,13 +123,18 @@ if parser.parse_args().quest != None:
 # stuid = input('Student Id')
 if parser.parse_args().vote != None:
     uid = (parser.parse_args().vote)
-    print('List questions need your vote: '+ '-'.join(map(lambda x: str(x), Q.assigment[uid])) )
-    
-    if len(Q.assigment[uid])> 0 :
-        votes = Q.doVote(uid)
-        if (len(votes)>0):
-            printList(votes)
-            voteToCSV(votes, uid)
+    if Q.assigment.get(uid) !=None:
+        print('List questions need your vote: ['+ ', '.join(map(lambda x: str(x), Q.assigment[uid])) + ']' )
+        
+        if len(Q.assigment[uid])> 0 :
+            votes = Q.doVote(uid)
+            if (len(votes)>0):
+                printList(votes)
+                voteToCSV(votes, uid)
+        else:
+            print('Your vote question is empty, please check and maybe you must do manualy')
+    else:
+        print('Sorry, Student id not found. Recheck again and maybe you must do manualy')
 
 if parser.parse_args().quest == None and parser.parse_args().vote == None:
     print('Nothing TODO')
