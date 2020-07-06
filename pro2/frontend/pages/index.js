@@ -15,7 +15,7 @@ export default function Home() {
     setError(null);
     setData(null);
 
-    fetch(`http://www.omdbapi.com/?s=${q}&apikey=${API_KEY}`)
+    fetch(`http://www.omdbapi.com/?s=${q}&apikey=${API_KEY}&plot=full`)
       .then((resp) => resp)
       .then((resp) => resp.json())
       .then((response) => {
