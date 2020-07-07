@@ -1,4 +1,5 @@
 import pandas as pd
+
 from surprise import Reader, Dataset, SVD
 from os import path
 
@@ -65,3 +66,4 @@ class TopRateMovieForUser:
             return movie_est_rate[:10]
 
         return "Error: Invalid user_id"
+
