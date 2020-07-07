@@ -29,3 +29,4 @@ venv
 build
 
 example-pickle
+/ml_data
