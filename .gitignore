@@ -139,3 +139,4 @@ dmypy.json
 .Trashes
 ehthumbs.db
 Thumbs.db
+pro2/backend/ml_models/model2.pickle

@@ -1,7 +1,7 @@
 from app import app
 from app.models import MovieSchema, Movie
 from app.top_rate_for_user import TopRateMovieForUser
-from app.utils import check_input_valid
+from app.utils import check_input_valid, load_pickle, InvalidUsage
 from flask import abort, g, jsonify, request
 import pickle
 import pandas as pd
@@ -28,8 +28,15 @@ def get_top_ten():
 @app.route('/api/top-ten-similar/<movie_id>')
 def get_top_ten_similar(movie_id):
     # return top 10 movies' movie_ids
-    top_ten_similar = ['tt0114709', 'tt0113497']
-    return jsonify(top_ten_similar)
+    if movie_id.isdigit():
+        try:
+            model2 = load_pickle('ml_models/model2.pickle')
+            return model2.get_recommendations(int(movie_id)).to_json()
+        except Exception as e:
+            raise InvalidUsage(
+                'Have error when get top similars: ' + str(e), status_code=502)
+    else:
+        raise InvalidUsage('Need movie id', status_code=400)
 
 
 @app.route('/api/rate/<user_id>/<movie_id>')
@@ -69,7 +76,7 @@ def get_top_ten_rate_of_user():
     user_id = int(request.args['user_id'])
     print(user_id)
     topRateMovieForUser = TopRateMovieForUser(
-        'ml_data/', 'ratings_small.csv', 'ml_models/', 
+        'ml_data/', 'ratings_small.csv', 'ml_models/',
         'top-user-movie-ratings-small.pkl')
     # top_ten_rate = ['tt0114709', 'tt0113497']
     return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
@@ -111,3 +118,10 @@ def load_pickle_file():
     new_dict = pickle.load(infile)
     infile.close()
     return jsonify(new_dict)
+
+
+@app.errorhandler(InvalidUsage)
+def handle_invalid_usage(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
