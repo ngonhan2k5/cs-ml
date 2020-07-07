@@ -13,10 +13,11 @@ class Movie(db.Model):
     runtime = db.Column(db.Integer)
     release_date = db.Column(db.String(15))
 
-    def __init__(self, poster_path, imdb_id, title, overview, vote_average,
+    def __init__(self, id, imdb_id, poster_path, title, overview, vote_average,
                  vote_count, runtime, release_date):
-        self.poster_path = poster_path
+        self.id = id
         self.imdb_id = imdb_id
+        self.poster_path = poster_path
         self.title = title
         self.overview = overview
         self.vote_average = vote_average
@@ -27,5 +28,5 @@ class Movie(db.Model):
 
 class MovieSchema(ma.Schema):
     class Meta:
-        fields = ('poster_path', 'imdb_id', 'title', 'overview',
+        fields = ('id', 'imdb_id', 'poster_path', 'title', 'overview',
                   'vote_average', 'vote_count', 'runtime', 'release_date')
