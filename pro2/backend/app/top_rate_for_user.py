@@ -8,7 +8,8 @@ import pickle
 
 class TopRateMovieForUser:
 
-    def __init__(self, csv_dir_path, csv_file_name, pkl_dir_path, pkl_filename):
+    def __init__(self, csv_dir_path, csv_file_name,
+                 pkl_dir_path, pkl_filename):
         self.csv_dir_path = csv_dir_path
         self.csv_file_name = csv_file_name
 
@@ -66,4 +67,3 @@ class TopRateMovieForUser:
             return movie_est_rate[:10]
 
         return "Error: Invalid user_id"
-
