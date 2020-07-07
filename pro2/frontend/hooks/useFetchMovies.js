@@ -1,40 +1,37 @@
-import {useState, useEffect} from 'react'
+// import {useState, useEffect} from 'react'
 
-const API_KEY = "ce762116";
 
-function useFetchMovie(){
-    const [q, setQuery] = useState("batman");
+// function useFetchMovie(movieIds){
+//     const [q, setQuery] = useState("batman");
 
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+//     const [data, setData] = useState(null);
+//     const [error, setError] = useState(null);
+//     const [loading, setLoading] = useState(false);
   
-    useEffect(() => {
-      setLoading(true);
-      setError(null);
-      setData(null);
-  
-      fetch(`http://www.omdbapi.com/?s=${q}&apikey=${API_KEY}&plot=full`)
-        .then((resp) => resp)
-        .then((resp) => resp.json())
-        .then((response) => {
-          if (response.Response === "False") {
-            setError(response.Error);
-          } else {
-            console.log("response.Search");
-            console.log(response.Search);
-            setData(response.Search);
-          }
-  
-          setLoading(false);
-        })
-        .catch(({ message }) => {
-          setError(message);
-          setLoading(false);
-        });
-    }, [q]);
+//     useEffect(() => {
+//       setLoading(true);
+//       setError(null);
+//       setData(null);
+//       const query = movieIds.map(movieId => `movieIds=${movieId}`).join('&')
 
-    return [data, loading, error]
-}
+//       fetch(`http://127.0.0.1:5000/api/movies?${query}`)
+//         .then((resp) => resp)
+//         .then((resp) => resp.json())
+//         .then((response) => {
+//           // if (response.Response === "False") {
+//           //   setError(response.Error);
+//           // } else 
+//           //   setData(response);
+//           // }
+//           setLoading(false);
+//         })
+//         .catch(({ message }) => {
+//           setError(message);
+//           setLoading(false);
+//         });
+//     }, [q]);
 
-export default useFetchMovie;
+//     return [data, loading, error]
+// }
+
+// export default useFetchMovie;
