@@ -84,7 +84,7 @@ def get_top_ten_rate_of_user():
 
 @app.route('/api/movies/<movie_id>')
 def get_movie_by_id(movie_id):
-    movie = Movie.query.get(movie_id)
+    movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
     if movie is None:
         abort(404, description="Resource not found")
     else:
