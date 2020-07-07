@@ -14,5 +14,5 @@ with open('../backend/ml_models/model2.pickle', 'rb') as f:
     model2 = pickle.load(f)
     
     # Test model call
-    print(model2.get_recommendations(id).to_json())
+    print(model2.get_recommendations(id).index.tolist())
     # print(json.dumps(model2.get_recommendations(id)))
