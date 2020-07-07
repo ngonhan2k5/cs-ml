@@ -1,13 +1,13 @@
 import pickle
 import pandas as pd 
 
-df2=pd.read_csv('../input/tmdb-movie-metadata/tmdb_5000_movies.csv')
+# df2=pd.read_csv('../input/tmdb-movie-metadata/tmdb_5000_movies.csv')
 
-from model2 import Model2
+# from app.model2 import Model2
 
 # Test
 id = 155
-print(df2.loc[df2['id']==id][['title', 'overview']])
+# print(df2.loc[df2['id']==id][['title', 'overview']])
 
 # Import
 with open('../backend/ml_models/model2.pickle', 'rb') as f:
