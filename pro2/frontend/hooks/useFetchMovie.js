@@ -7,13 +7,14 @@ function useFetchMovie({ movieId }) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!movieId) return;
     (async function () {
       setLoading(true);
       setError(null);
       setData(null);
       try {
         const result = await getMovieByMovieId(movieId);
-        setData(result.data);
+        setData(result);
         setLoading(false);
       } catch (e) {
         console.log(e);

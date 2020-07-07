@@ -7,58 +7,78 @@ import useFetchMovie from "../../hooks/useFetchMovie";
 export default function MovieDetail(props) {
   const router = useRouter();
   const { movieId } = router.query;
-  const [data, loading, error] = useFetchMovie({movieId});
-  console.log('movieId' + movieId)
+  const [data, loading, error] = useFetchMovie({ movieId });
+  if (!movieId || !data) return null;
+  console.log(data);
+  const movie = data;
   return (
     <div className="container">
       <Head>
-        <title>Movie Recommendator System</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossOrigin="anonymous"
-        ></link>
+        <title>{movie.Title}</title>
       </Head>
 
       <main>
-        <h1>Movie detail</h1>
-        {/* <h1>{data ?? data?.Title}</h1> */}
+        {/* <div className="container row movie-header">
+          <h1>{data.Title}</h1>
+          <p>({data.Year})</p>
+        </div> */}
+
+        <div className="container row">
+          <img src={data.Poster} className="col-12 col-md-3"></img>
+          <div className="col-12 col-md-9">
+            <div className="content__area">
+              <div className="content__area__container">
+                <div className="content__title">{movie.Title}</div>
+                <div className="content__description">{movie.overview}</div>
+                <div>
+                  <span className="list-label">Starring</span>
+                  <span className="list-item">{movie.Genre}</span>
+                </div>
+                <div>
+                  <span className="list-label">Actors</span>
+                  <span className="list-item">{movie.Actors}</span>
+                </div>
+                <div>
+                  <span className="list-label">Languages</span>
+                  <span className="list-item">{movie.Language}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <TopTenSimilarMovies movieId={movieId}></TopTenSimilarMovies>
       </main>
 
-      <footer></footer>
-
       <style jsx>{`
-        main > h1 {
-          text-align: center;
-          padding: 10px;
+        .list-label {
+          color: #828282;
+          font-weight: 700;
+          margin-right: 5px;
+          font-size: 15px;
         }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
+        .list-item {
+          font-size: 0.9em;
+          color: #828282;
+        }
+      `}</style>
+      <style jsx>{``}</style>
+
+      {/* <style jsx global>{`
+        .movie-header {
+          margin-bottom: 20px;
           display: flex;
-          justify-content: center;
-          align-items: center;
+          flex-direction: row;
+          align-items: flex-end;
         }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
+        .movie-header p {
+          margin-bottom: 3px;
         }
-
-        * {
-          box-sizing: border-box;
+        .movie-header h1 {
+          margin-bottom: 0px;
+          margin-right: 0px;
         }
-      `}</style>
+      `}</style> */}
     </div>
   );
 }
