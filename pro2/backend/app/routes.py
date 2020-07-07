@@ -1,5 +1,6 @@
 from app import app
 from app.models import MovieSchema, Movie
+from app.top_rate_for_user import TopRateMovieForUser
 from app.utils import check_input_valid
 from flask import abort, g, jsonify, request
 import pickle
@@ -31,13 +32,11 @@ def get_top_ten_similar(movie_id):
     return jsonify(top_ten_similar)
 
 
-@app.route('/api/rate', methods=['GET'])
-def get_rate():
+@app.route('/api/rate/<user_id>/<movie_id>')
+def get_rate(user_id, movie_id):
     rating_filename = 'ml_data/ratings_small.csv'
     reader = Reader()
-    ratings = pd.read_csv(rating_filename)
-    user_id = int(request.args['user_id'])
-    movie_id = int(request.args['movie_id'])
+    ratings = pd.read_csv(rating_filename)    
 
     if not check_input_valid(user_id, movie_id, ratings):
         return "Error: The value of arguments user_id or movie_id is not valid"
@@ -64,11 +63,14 @@ def get_rate():
     return jsonify(predict)
 
 
-@app.route('/api/top-ten-rate/<movie_id>')
-def get_top_ten_rate(Movie_id):
-    # return top 10 movies' movie_ids
-    top_ten_rate = ['tt0114709', 'tt0113497']
-    return jsonify(top_ten_rate)
+@app.route('/api/top-ten-rate', methods=['GET'])
+def get_top_ten_rate_of_user():
+    # return top 10 movies' with user_id
+    user_id = int(request.args['user_id'])
+    print(user_id)
+    topRateMovieForUser = TopRateMovieForUser('ml_data/','ratings_small.csv', 'ml_models/', 'top-user-movie-ratings-small.pkl')
+    # top_ten_rate = ['tt0114709', 'tt0113497']
+    return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
 
 
 @app.route('/api/movies/<movie_id>')
