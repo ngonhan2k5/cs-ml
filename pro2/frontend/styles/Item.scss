@@ -1,0 +1,24 @@
+.item {
+  flex: 0 0 19.7%;
+  transition: transform 300ms ease 100ms;
+  margin: 0 2px;
+  position: relative;
+  padding: 60px 0px;
+  cursor: pointer;
+  min-width: 150px;
+
+  img {
+    height: 100%;
+    width: 100%;
+    vertical-align: top;
+  }
+
+  .item_info{
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
