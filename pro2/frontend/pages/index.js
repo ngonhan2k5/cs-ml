@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import TopTenMovies from '../blocks/TopTenMovies'
+import TopTenRateMovies from '../blocks/TopTenRateMovies'
+import SwitchUserForm from '../blocks/SwitchUserForm'
 
 export default function Home() {
+  const [userId, setUserId] = useState(1);
   return (
     <div className="container">
       <Head>
@@ -12,13 +14,14 @@ export default function Home() {
           rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         ></link>
       </Head>
 
       <main>
+       <SwitchUserForm setUserId={setUserId} userId={userId}></SwitchUserForm>
         <h1>MOVIES RECOMMENDATION</h1>
-        <TopTenMovies></TopTenMovies>
+        <TopTenRateMovies userId={userId}></TopTenRateMovies>
       </main>
 
       <footer></footer>

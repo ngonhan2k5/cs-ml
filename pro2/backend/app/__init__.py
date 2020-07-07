@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import os
@@ -6,6 +7,7 @@ import os
 
 app = Flask(__name__)
 
+CORS(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + \
     os.path.join(basedir, 'movies_metadata.db')
