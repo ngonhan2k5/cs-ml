@@ -17,9 +17,8 @@ function useFetchTopSimilarMovies({ movieId }) {
         const mlResult = await axios.get(
           `http://127.0.0.1:5000/api/top-ten-similar/${movieId}`
         );
-        console.log( mlResult)
-        const movieIds = mlResult.data.keys();
-        const dataList = await getMoviesByMovieIds(movieIds);
+
+        const dataList = await getMoviesByMovieIds(mlResult.data);
 
         setData(dataList);
         setLoading(false);
