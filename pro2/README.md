@@ -11,6 +11,7 @@ to start, in backend folder run\
 * pip install flask_sqlalchemy
 * pip install flask_marshmallow
 * pip install surprise
+* pip install flask_cors
 
 ## Model2 - top similar of 1 movie:
 ### Containner class:
