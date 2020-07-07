@@ -33,9 +33,10 @@ def get_top_ten_similar(movie_id):
             model2 = load_pickle('ml_models/model2.pickle')
             return jsonify(model2.get_recommendations(int(movie_id)).index.tolist())
         except Exception as e:
-            raise InvalidUsage('Have error when get top similars: ' + str(e), status_code=502) 
+            raise InvalidUsage(
+                'Have error when get top similars: ' + str(e), status_code=502)
     else:
-        raise InvalidUsage('Need movie id', status_code=400) 
+        raise InvalidUsage('Need movie id', status_code=400)
 
 
 @app.route('/api/rate/<user_id>/<movie_id>')
@@ -75,7 +76,7 @@ def get_top_ten_rate_of_user():
     user_id = int(request.args['user_id'])
     print(user_id)
     topRateMovieForUser = TopRateMovieForUser(
-        'ml_data/', 'ratings_small.csv', 'ml_models/', 
+        'ml_data/', 'ratings_small.csv', 'ml_models/',
         'top-user-movie-ratings-small.pkl')
     # top_ten_rate = ['tt0114709', 'tt0113497']
     return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
