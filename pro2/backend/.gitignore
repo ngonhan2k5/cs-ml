@@ -30,5 +30,6 @@ build
 
 example-pickle
 ml_data
+ml_models
 
 
