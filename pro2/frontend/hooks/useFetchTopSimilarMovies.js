@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {getMoviesByMovieIds} from "../services/movieService"
+import { getMoviesByMovieIds } from "../services/movieService";
 
-function useFetchMovie({ userId }) {
+function useFetchTopSimilarMovies({ movieId }) {
   // const [userId, setUserId] = useState("batman");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -14,27 +14,24 @@ function useFetchMovie({ userId }) {
       setError(null);
       setData(null);
       try {
-
         const mlResult = await axios.get(
-          `http://127.0.0.1:5000/api/top-ten-rate?user_id=${userId}`
+          `http://127.0.0.1:5000/api/top-ten-similar/${movieId}`
         );
-        const movieIds = mlResult.data
-          .map((obj) => obj.movie_id);
-
-  
+        console.log( mlResult)
+        const movieIds = mlResult.data.keys();
         const dataList = await getMoviesByMovieIds(movieIds);
 
         setData(dataList);
         setLoading(false);
       } catch (e) {
-        console.log(e)
+        console.log(e);
         setError(e);
         setLoading(false);
       }
     })();
-  }, [userId]);
+  }, [movieId]);
 
   return [data, loading, error];
 }
 
-export default useFetchMovie;
+export default useFetchTopSimilarMovies;

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import TopTenRateMovies from '../blocks/TopTenRateMovies'
-import SwitchUserForm from '../blocks/SwitchUserForm'
+import TopTenSimilarMovies from "../../blocks/TopTenSimilarMovies";
+import useFetchMovie from "../../hooks/useFetchMovie";
 
-export default function Home() {
-  const [userId, setUserId] = useState(1);
+export default function MovieDetail(props) {
+  const router = useRouter();
+  const { movieId } = router.query;
+  const [data, loading, error] = useFetchMovie({movieId});
+  console.log('movieId' + movieId)
   return (
     <div className="container">
       <Head>
@@ -19,9 +23,9 @@ export default function Home() {
       </Head>
 
       <main>
-       <SwitchUserForm setUserId={setUserId} userId={userId}></SwitchUserForm>
-        <h1>MOVIES RECOMMENDATION</h1>
-        <TopTenRateMovies userId={userId}></TopTenRateMovies>
+        <h1>Movie detail</h1>
+        {/* <h1>{data ?? data?.Title}</h1> */}
+        <TopTenSimilarMovies movieId={movieId}></TopTenSimilarMovies>
       </main>
 
       <footer></footer>

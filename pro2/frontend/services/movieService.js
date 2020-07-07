@@ -19,3 +19,11 @@ export async function getMoviesByMovieIds(movieIds) {
   const dataList = results.map((result) => result.data);
   return dataList;
 }
+
+export async function getMovieByMovieId(movieId) {
+
+    const movie = await axios.get(`http://127.0.0.1:5000/api/movies/${movieId}`);
+    const result = await axios.get(`http://www.omdbapi.com/?i=${movie.data.imdb_id}&apikey=${API_KEY}`)  
+    return result.data;
+  }
+  
