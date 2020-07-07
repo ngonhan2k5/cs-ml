@@ -18,7 +18,7 @@ export async function getMoviesByMovieIds(movieIds) {
   const results = await Promise.all(calls);
 
   const dataList = results.map((result) => result.data);
-
+    
   for(let i = 0; i < dataList.length; i++){
     dataList[i]['id'] = movies.data[i]['id'];
     dataList[i]['overview'] =  movies.data[i]['overview'];
