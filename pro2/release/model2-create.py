@@ -19,21 +19,20 @@ df2=pd.read_csv('../input/tmdb-movie-metadata/tmdb_5000_movies.csv')
 df2['overview'].head(1)
 
 
-
 # 3. Export parts
-from model2 import Model2
+from ml_models.model2 import Model2
 
-model2 = Model2('../input/tmdb-movie-metadata/tmdb_5000_movies.csv') 
+model20 = Model2('../input/tmdb-movie-metadata/tmdb_5000_movies.csv') 
 # Test model call
 id = 155
 print(df2.loc[df2['id']==id][['title', 'overview']])
-print(model2.get_recommendations(id))
+print(model20.get_recommendations(id))
 
 # Export
 with open('../backend/ml_models/model2.pickle', 'wb') as f:
-    pickle.dump(model2, f, 4)
+    pickle.dump(model20, f, 4)
 
 # Zip
-with open('../backend/ml_models/model2.pickle', 'rb') as f_in:
-    with gzip.open('../backend/ml_models/model2.pickle.gz', 'wb') as f_out:
-        shutil.copyfileobj(f_in, f_out)
+# with open('../backend/ml_models/model2.pickle', 'rb') as f_in:
+#     with gzip.open('../backend/ml_models/model2.pickle.gz', 'wb') as f_out:
+#         shutil.copyfileobj(f_in, f_out)
