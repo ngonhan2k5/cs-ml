@@ -31,7 +31,7 @@ def get_top_ten_similar(movie_id):
     if movie_id.isdigit():
         try:
             model2 = load_pickle('ml_models/model2.pickle')
-            return model2.get_recommendations(int(movie_id)).to_json()
+            return jsonify(model2.get_recommendations(int(movie_id)).index.tolist())
         except Exception as e:
             raise InvalidUsage(
                 'Have error when get top similars: ' + str(e), status_code=502)
