@@ -32,13 +32,11 @@ def get_top_ten_similar(movie_id):
     return jsonify(top_ten_similar)
 
 
-@app.route('/api/rate', methods=['GET'])
-def get_rate():
+@app.route('/api/rate/<user_id>/<movie_id>')
+def get_rate(user_id, movie_id):
     rating_filename = 'ml_data/ratings_small.csv'
     reader = Reader()
-    ratings = pd.read_csv(rating_filename)
-    user_id = int(request.args['user_id'])
-    movie_id = int(request.args['movie_id'])
+    ratings = pd.read_csv(rating_filename)    
 
     if not check_input_valid(user_id, movie_id, ratings):
         return "Error: The value of arguments user_id or movie_id is not valid"
