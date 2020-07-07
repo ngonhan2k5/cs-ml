@@ -1,27 +1,17 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
-import TopTenRateMovies from '../blocks/TopTenRateMovies'
-import SwitchUserForm from '../blocks/SwitchUserForm'
+import TopTenRateMovies from "../blocks/TopTenRateMovies";
+import SwitchUserForm from "../blocks/SwitchUserForm";
 
-export default function Home() {
-  const [userId, setUserId] = useState(1);
+export default function Home(props) {
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossOrigin="anonymous"
-        ></link>
+        <title>Movie Recommendator System</title>
       </Head>
 
       <main>
-       <SwitchUserForm setUserId={setUserId} userId={userId}></SwitchUserForm>
-        <h1>MOVIES RECOMMENDATION</h1>
-        <TopTenRateMovies userId={userId}></TopTenRateMovies>
+        <TopTenRateMovies userId={props.userId}></TopTenRateMovies>
       </main>
 
       <footer></footer>
@@ -32,6 +22,7 @@ export default function Home() {
           padding: 10px;
         }
         footer {
+          margin-top: 80px;
           width: 100%;
           height: 100px;
           border-top: 1px solid #eaeaea;
@@ -41,20 +32,7 @@ export default function Home() {
         }
       `}</style>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
+      <style jsx global>{``}</style>
     </div>
   );
 }
