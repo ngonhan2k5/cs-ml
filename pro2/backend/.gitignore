@@ -28,7 +28,11 @@ venv
 *.pyc
 build
 
+<<<<<<< HEAD
 
 example-pickle
 /ml_data
 
+=======
+example-pickle
+>>>>>>> 6681fae974167d5e83ef23f598421f04904f0fa1
