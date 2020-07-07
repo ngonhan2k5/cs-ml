@@ -5,7 +5,6 @@ function SwitchUserForm(props) {
     e.preventDefault();
     props.setUserId(parseInt(inputContent));
     props.closeSwitchUser();
-
   };
   const onChange = (e) => setInputContent(e.target.value);
   return (
@@ -15,7 +14,8 @@ function SwitchUserForm(props) {
           <span>User Id:</span>
           <input type="number" value={inputContent} onChange={onChange}></input>
         </label>
-        <input type="submit" value="Update user id"></input>
+        <button onClick={props.closeSwitchUser}>Close</button>
+        <input type="submit" value="Switch User"></input>
       </form>
       <style jsx>{`
         .switch-form {
@@ -35,13 +35,21 @@ function SwitchUserForm(props) {
           align-items: center;
           justify-content: center;
         }
+        button {
+          cursor: pointer;
+          float: right;
+          padding: 5px 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-left: 10px;
+        }
         .switch-form label {
           color: black;
           display: block;
           padding-bottom: 10px;
         }
         .switch-form label span {
-        padding-right: 10px;
+          padding-right: 10px;
           line-height: 36px;
         }
         .switch-form input {
@@ -49,6 +57,7 @@ function SwitchUserForm(props) {
           padding: 5px 10px;
           border-radius: 5px;
           border: 1px solid #ccc;
+          text-align: right;
         }
       `}</style>
     </div>

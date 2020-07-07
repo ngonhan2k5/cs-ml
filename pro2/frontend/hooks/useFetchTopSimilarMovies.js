@@ -18,7 +18,7 @@ function useFetchTopSimilarMovies({ movieId }) {
           `http://127.0.0.1:5000/api/top-ten-similar/${movieId}`
         );
 
-        const dataList = await getMoviesByMovieIds(mlResult.data);
+        const dataList = await getMoviesByMovieIds(mlResult.data["top-ten"]);
 
         setData(dataList);
         setLoading(false);
