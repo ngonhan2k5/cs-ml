@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import TopTenSimilarMovies from "../../blocks/TopTenSimilarMovies";
+import SuggestedMovies from "../../blocks/SuggestedMovies";
+import Rates from "../../blocks/Rates";
 import useFetchMovie from "../../hooks/useFetchMovie";
 
 export default function MovieDetail(props) {
   const router = useRouter();
   const { movieId } = router.query;
   const [data, loading, error] = useFetchMovie({ movieId });
+
   if (!movieId || !data) return null;
-  console.log(data);
   const movie = data;
+  localStorage.setItem("latedMovieId", movieId);
+
   return (
     <div className="container">
       <Head>
@@ -23,7 +27,7 @@ export default function MovieDetail(props) {
           <p>({data.Year})</p>
         </div> */}
 
-        <div className="container row">
+        <div className="movie-detail container row">
           <img src={data.Poster} className="col-12 col-md-3"></img>
           <div className="col-12 col-md-9">
             <div className="content__area">
@@ -42,15 +46,30 @@ export default function MovieDetail(props) {
                   <span className="list-label">Languages</span>
                   <span className="list-item">{movie.Language}</span>
                 </div>
+                <Rates
+                  userId={props.userId}
+                  movie={data}
+                  movieId={movieId}
+                ></Rates>
               </div>
             </div>
           </div>
         </div>
-
-        <TopTenSimilarMovies movieId={movieId}></TopTenSimilarMovies>
+        <SuggestedMovies
+          movieTitle={movie.Title}
+          userId={props.userId}
+        ></SuggestedMovies>
+        <TopTenSimilarMovies
+          userId={props.userId}
+          movieId={movieId}
+          label={"TOP 10 SIMILAR MOVIES"}
+        ></TopTenSimilarMovies>
       </main>
 
       <style jsx>{`
+        .movie-detail {
+          margin: 50px 0px 140px 0;
+        }
         .list-label {
           color: #828282;
           font-weight: 700;
@@ -62,23 +81,6 @@ export default function MovieDetail(props) {
           color: #828282;
         }
       `}</style>
-      <style jsx>{``}</style>
-
-      {/* <style jsx global>{`
-        .movie-header {
-          margin-bottom: 20px;
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-        }
-        .movie-header p {
-          margin-bottom: 3px;
-        }
-        .movie-header h1 {
-          margin-bottom: 0px;
-          margin-right: 0px;
-        }
-      `}</style> */}
     </div>
   );
 }

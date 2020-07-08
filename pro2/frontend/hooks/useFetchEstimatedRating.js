@@ -1,40 +1,36 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {getMoviesByMovieIds} from "../services/movieService"
+import { getMovieByMovieId } from "../services/movieService";
 
-function useFetchTopRateMovies({ userId }) {
-
+function useFetchEstimatedRating({ movieId, userId }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!movieId) return;
+    if (!userId) return;
+
     (async function () {
       setLoading(true);
       setError(null);
       setData(null);
       try {
-
-        const mlResult = await axios.get(
-          `http://127.0.0.1:5000/api/top-ten-rate?user_id=${userId}`
+        const result = await axios.get(
+          `http://127.0.0.1:5000/api/estimated_rate/${userId}/${movieId}`
         );
-        const movieIds = mlResult.data
-          .map((obj) => obj.movie_id);
 
-  
-        const dataList = await getMoviesByMovieIds(movieIds);
-
-        setData(dataList);
+        setData(result.data);
         setLoading(false);
       } catch (e) {
-        console.log(e)
+        console.log(e);
         setError(e);
         setLoading(false);
       }
     })();
-  }, [userId]);
+  }, [movieId, userId]);
 
   return [data, loading, error];
 }
 
-export default useFetchTopRateMovies;
+export default useFetchEstimatedRating;

@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import {getMoviesByMovieIds} from "../services/movieService"
 
-function useFetchTopRateMovies({ userId }) {
+function useFetchSuggestedMovies({ userId, movieTitle }) {
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  movieTitle = encodeURI(movieTitle)
   useEffect(() => {
     (async function () {
       setLoading(true);
@@ -16,10 +16,10 @@ function useFetchTopRateMovies({ userId }) {
       try {
 
         const mlResult = await axios.get(
-          `http://127.0.0.1:5000/api/top-ten-rate?user_id=${userId}`
+          `http://127.0.0.1:5000/api/suggested_movies/${userId}/${movieTitle}`
         );
         const movieIds = mlResult.data
-          .map((obj) => obj.movie_id);
+          .map((obj) => obj.id);
 
   
         const dataList = await getMoviesByMovieIds(movieIds);
@@ -37,4 +37,4 @@ function useFetchTopRateMovies({ userId }) {
   return [data, loading, error];
 }
 
-export default useFetchTopRateMovies;
+export default useFetchSuggestedMovies;
