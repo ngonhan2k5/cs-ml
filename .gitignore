@@ -140,3 +140,4 @@ dmypy.json
 ehthumbs.db
 Thumbs.db
 pro2/backend/ml_models/model2.pickle
+pro2/backend/ml_models/*.pkl

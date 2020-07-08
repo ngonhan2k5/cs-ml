@@ -1,22 +1,38 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import TopTenRateMovies from "../blocks/TopTenRateMovies";
+import TopTenSimilarMovies from "../blocks/TopTenSimilarMovies";
 import SwitchUserForm from "../blocks/SwitchUserForm";
 
 export default function Home(props) {
+  const latedMovieId = process.browser
+    ? localStorage.getItem("latedMovieId")
+    : null;
   return (
     <div className="container">
       <Head>
-        <title>Movie Recommendator System</title>
+        <title>Machine Learning Netflix</title>
       </Head>
 
       <main>
-        <TopTenRateMovies userId={props.userId}></TopTenRateMovies>
+        <div className="movie-list">
+          <TopTenRateMovies userId={props.userId} />
+        </div>
+        {latedMovieId != null && !isNaN(latedMovieId) ? (
+          <TopTenSimilarMovies
+            userId={props.userId}
+            movieId={latedMovieId}
+            label={"BASED ON YOUR BROWSING HISTORY"}
+          ></TopTenSimilarMovies>
+        ) : null}
       </main>
 
       <footer></footer>
 
       <style jsx>{`
+        .movie-list {
+          margin: 30px 0;
+        }
         main > h1 {
           text-align: center;
           padding: 10px;
@@ -32,7 +48,8 @@ export default function Home(props) {
         }
       `}</style>
 
-      <style jsx global>{``}</style>
+      <style jsx global>{`
+        `}</style>
     </div>
   );
 }

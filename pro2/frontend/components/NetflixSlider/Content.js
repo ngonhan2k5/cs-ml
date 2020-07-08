@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import IconCross from "./../Icons/IconCross";
+import Rates from "../../blocks/Rates";
 
 function useOutsideAlerter(ref) {
   useEffect(() => {
@@ -22,7 +23,7 @@ function useOutsideAlerter(ref) {
   }, [ref]);
 }
 
-const Content = ({ movie, onClose }) => {
+const Content = ({ movie, onClose, props, userId }) => {
   const wrapperRef = useRef(null);
   useOutsideAlerter(wrapperRef);
   return (
@@ -50,6 +51,7 @@ const Content = ({ movie, onClose }) => {
             <span className="list-label">Languages</span>
             <span className="list-item">{movie.Language}</span>
           </div>
+          <Rates userId={userId} movie={movie} movieId={movie.id}></Rates>
           <Link href="/movies/[movieId]" as={`/movies/${movie.id}`}>
             <div className="play-button">
               <svg viewBox="0 0 24 24">
