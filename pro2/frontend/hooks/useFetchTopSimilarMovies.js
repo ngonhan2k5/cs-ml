@@ -3,7 +3,6 @@ import axios from "axios";
 import { getMoviesByMovieIds } from "../services/movieService";
 
 function useFetchTopSimilarMovies({ movieId }) {
-  // const [userId, setUserId] = useState("batman");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

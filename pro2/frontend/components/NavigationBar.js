@@ -7,26 +7,31 @@ export default function NavigationBar(props) {
       <div className="row">
         <div className="col-9">
           <Link href="/">
-            <h1>Netflix 2</h1>
+            <span className="row web-site-title">
+              <img
+                height="40px"
+                src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+              ></img>
+              <h1>ML</h1>
+            </span>
           </Link>
         </div>
         <div className="col-3">
-          <span className="current-user">
-            <i className="fa fa-user" aria-hidden="true"></i> {props.userId}
-            <a onClick={props.openSwitchUser}>
-              <i className="fa fa-exchange" aria-hidden="true"></i>
-            </a>
-          </span>
+          <a onClick={props.openSwitchUser}>
+            <span className="current-user">
+              Welcome #{props.userId}
+              <i className="fa fa-power-off" aria-hidden="true"></i>
+            </span>
+          </a>
         </div>
       </div>
       <style jsx>{`
         a {
           text-decoration: none;
-          margin-left: 30px;
           color: white;
         }
-        a:hover{
-            color: rgba(255, 255, 255, 0.7);
+        a:hover {
+          color: rgba(255, 255, 255, 0.7);
         }
         span {
           float: left;
@@ -34,13 +39,26 @@ export default function NavigationBar(props) {
         .current-user {
           margin-top: 30px;
           ont-size: 19px;
-          float:right;
+          float: right;
+          background-color: rgba(255, 255, 255, 0.2);
+          padding: 6px 20px;
+          border-radius: 5px;
+          font-weight: 400;
         }
         i {
-          margin-right: 3px;
+          margin-left: 10px
         }
-        h1 {
+        img {
           margin: 30px 0px;
+        }
+        .web-site-title {
+          float: none;
+          cursor: pointer;
+        }
+        .web-site-title h1 {
+          margin-bottom: 0;
+          margin-left: 10px;
+          line-height: 2.5;
         }
       `}</style>
     </div>

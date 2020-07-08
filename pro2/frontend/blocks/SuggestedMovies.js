@@ -2,20 +2,19 @@ import { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 
 import Movie from "../components/Movie";
-import useFetchMovies from "../hooks/useFetchMovies";
 import { Loading, Error } from "../components/LoadingStatus";
 
-import useFetchTopRate from "../hooks/useFetchTopRate";
+import useFetchSuggested from "../hooks/useFetchSuggested";
 import Slider from "../components/NetflixSlider";
 
-function TopTenRateMoviesTitle() {
+function SuggestedMoviesTitle() {
   return (
     <>
-      <a data-tip data-for="TopTenRateMoviesTitle">
-        <h4 className="movie-list-label">RECOMMENDATIONS FOR YOU</h4>
+      <a data-tip data-for="SuggestedMoviesTitle">
+        <h4 className="movie-list-label">YOU MAY ALSO LIKE</h4>
       </a>
       <ReactTooltip
-        id="TopTenRateMoviesTitle"
+        id="SuggestedMoviesTitle"
         place="top"
         type="dark"
         effect="float"
@@ -29,21 +28,21 @@ function TopTenRateMoviesTitle() {
     </>
   );
 }
-function TopTenRateMovies(props) {
-  const [data, loading, error] = useFetchTopRate(props);
+function SuggestedMovies(props) {
+  const [data, loading, error] = useFetchSuggested(props);
 
   if (!data) {
     if (loading == true)
       return (
         <div className="container">
-          <TopTenRateMoviesTitle />
+          <SuggestedMoviesTitle />
           <Loading></Loading>
         </div>
       );
     else if (error)
       return (
         <div className="container">
-          <TopTenRateMoviesTitle />
+          <SuggestedMoviesTitle />
           <Error></Error>
         </div>
       );
@@ -51,7 +50,7 @@ function TopTenRateMovies(props) {
   }
   return (
     <div className="container">
-      <TopTenRateMoviesTitle />
+      <SuggestedMoviesTitle />
       <div className="container">
         <Slider userId={props.userId}>
           {data.map((movie) => (
@@ -64,4 +63,4 @@ function TopTenRateMovies(props) {
     </div>
   );
 }
-export default TopTenRateMovies;
+export default SuggestedMovies;
