@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import TopTenRateMovies from "../blocks/TopTenRateMovies";
 import TopTenSimilarMovies from "../blocks/TopTenSimilarMovies";
+import TopTenMovies from "../blocks/TopTenMovies";
 import SwitchUserForm from "../blocks/SwitchUserForm";
 
 export default function Home(props) {
@@ -17,6 +18,9 @@ export default function Home(props) {
       <main>
         <div className="movie-list">
           <TopTenRateMovies userId={props.userId} />
+        </div>
+        <div className="movie-list">
+          <TopTenMovies userId={props.userId} />
         </div>
         {latedMovieId != null && !isNaN(latedMovieId) ? (
           <TopTenSimilarMovies

@@ -147,3 +147,11 @@ def train_model():
         with open(pkl_filename, 'wb') as file:
             pickle.dump(model, file)
     return model
+
+# Mohamed
+
+
+def get_high_rating_movies(movies, movies_count):
+    high_score = movies.sort_values('score', ascending=False)
+    return high_score[['id', 'title', 'vote_count', 'vote_average']].head(
+        movies_count)
