@@ -7,11 +7,13 @@ to start, in frontend folder run\
 to start, in backend folder run\
 ```python -m flask run ```
 
-### Dependences
+## Dependences
 * pip install flask_sqlalchemy
 * pip install flask_marshmallow
 * pip install surprise
-* pip install flask_cors
+* pip install flask_cors \
+
+[more...](https://github.com/ngonhan2k5/cs-ml/blob/master/pro2/backend/requirements.txt)
 
 ## Model2 - top similar of 1 movie:
 ### Containner class:
@@ -23,5 +25,10 @@ Training is create similarity TD-TRD matrix and freeze into pickle file
 ### Test:
 * at release folder: run to test  \
 ``` python model2-test```
-## Release:
+### Release:
 * Web API will load pickle file and use to lookup
+
+## Docker:
+At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
+```docker-compose build``` \
+```docker-compose up```
