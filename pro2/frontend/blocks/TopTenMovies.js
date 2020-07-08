@@ -4,45 +4,44 @@ import ReactTooltip from "react-tooltip";
 import Movie from "../components/Movie";
 import { Loading, Error } from "../components/LoadingStatus";
 
-import useFetchTopRate from "../hooks/useFetchTopRate";
+import useFetchTop from "../hooks/useFetchTop";
 import Slider from "../components/NetflixSlider";
 
-function TopTenRateMoviesTitle() {
+function TopTenMoviesTitle() {
   return (
     <>
-      <a data-tip data-for="TopTenRateMoviesTitle">
-        <h4 className="movie-list-label">RECOMMENDATIONS FOR YOU</h4>
+      <a data-tip data-for="TopTenMoviesTitle">
+        <h4 className="movie-list-label">TOP 10 RATED MOVIES</h4>
       </a>
       <ReactTooltip
-        id="TopTenRateMoviesTitle"
+        id="TopTenMoviesTitle"
         place="top"
         type="dark"
         effect="float"
       >
         <span>
-          We use collaborative filtering (SVD algorithm) with your
-          <br />
-          userId to select top 10 rated movies for you
+          We use demographic filtering and IMDB's weighted rating (wr)
+          <br /> to select top 10 highest rating movies
         </span>
       </ReactTooltip>
     </>
   );
 }
-function TopTenRateMovies(props) {
-  const [data, loading, error] = useFetchTopRate(props);
+function TopTenMovies(props) {
+  const [data, loading, error] = useFetchTop();
 
   if (!data) {
     if (loading == true)
       return (
         <div className="container">
-          <TopTenRateMoviesTitle />
+          <TopTenMoviesTitle />
           <Loading></Loading>
         </div>
       );
     else if (error)
       return (
         <div className="container">
-          <TopTenRateMoviesTitle />
+          <TopTenMoviesTitle />
           <Error></Error>
         </div>
       );
@@ -50,9 +49,9 @@ function TopTenRateMovies(props) {
   }
   return (
     <div className="container">
-      <TopTenRateMoviesTitle />
+      <TopTenMoviesTitle />
       <div className="container">
-        <Slider userId={props.userId}>
+      <Slider userId={props.userId}>
           {data.map((movie) => (
             <Slider.Item movie={movie} key={movie.id}>
               item1
@@ -63,4 +62,4 @@ function TopTenRateMovies(props) {
     </div>
   );
 }
-export default TopTenRateMovies;
+export default TopTenMovies;

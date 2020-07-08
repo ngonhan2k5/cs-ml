@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactTooltip from "react-tooltip";
 import Movie from "../components/Movie";
-import useFetchMovies from "../hooks/useFetchMovies";
 import useFetchTopSimilarMovies from "../hooks/useFetchTopSimilarMovies";
 import { Loading, Error } from "../components/LoadingStatus";
 import Slider from "../components/NetflixSlider";
