@@ -7,7 +7,7 @@ to start, in frontend folder run\
 to start, in backend folder run\
 ```python -m flask run ```
 
-### Dependences
+## Dependences
 * pip install flask_sqlalchemy
 * pip install flask_marshmallow
 * pip install surprise
@@ -23,7 +23,7 @@ Training is create similarity TD-TRD matrix and freeze into pickle file
 ### Test:
 * at release folder: run to test  \
 ``` python model2-test```
-## Release:
+### Release:
 * Web API will load pickle file and use to lookup
 
 ## Docker:
