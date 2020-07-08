@@ -25,3 +25,8 @@ Training is create similarity TD-TRD matrix and freeze into pickle file
 ``` python model2-test```
 ## Release:
 * Web API will load pickle file and use to lookup
+
+## Docker:
+At pro2/ \
+```docker-compose build``` \
+```docker-compose up```
