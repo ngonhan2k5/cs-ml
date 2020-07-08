@@ -3,7 +3,7 @@ from app.models import MovieSchema, Movie
 from app.top_rate_for_user import TopRateMovieForUser
 from app.utils import check_input_valid, load_pickle, InvalidUsage,\
     retrive_small_movie_metadata, compute_cosine_similarity,\
-    convert_int, train_model
+    convert_int, train_model, get_high_rating_movies
 
 from flask import abort, g, jsonify, request, Response
 import pickle
@@ -23,9 +23,33 @@ def close_connection(exception):
 
 @app.route('/api/top-ten')
 def get_top_ten():
-    # return top 10 movies' movie_ids
-    top_ten = ['tt0114709', 'tt0113497']
-    return jsonify(top_ten)
+    credits = pd.read_csv("ml_data/credits.csv")
+    keywords = pd.read_csv("ml_data/keywords.csv")
+    movies = pd.read_csv("ml_data/movies_metadata.csv")
+    indecies = movies[(movies.adult != 'True') &
+                      (movies.adult != 'False')].index
+    movies.drop(indecies, inplace=True)
+    credits['id'] = credits['id'].astype('int')
+    keywords['id'] = keywords['id'].astype('int')
+    movies['id'] = movies['id'].astype('int')
+
+    vote_counts = movies[movies['vote_count'].notnull()
+                         ]['vote_count'].astype('int')
+    m = vote_counts.quantile(0.95)
+    vote_averages = movies[movies['vote_average'].notnull(
+    )]['vote_average'].astype('float')
+    C = vote_averages.mean()
+
+    def weighted_rating(x):
+        v = x['vote_count']
+        R = x['vote_average']
+        return (v/(v+m) * R) + (m/(m+v) * C)
+
+    movies['score'] = movies.apply(weighted_rating, axis=1)
+    movies = get_high_rating_movies(movies, 10)
+
+    return Response(movies.to_json(orient="records"),
+                    mimetype='application/json')
 
 
 @app.route('/api/top-ten-similar/<movie_id>')
