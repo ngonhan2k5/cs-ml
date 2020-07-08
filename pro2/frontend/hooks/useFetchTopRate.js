@@ -16,7 +16,7 @@ function useFetchMovie({ userId }) {
       try {
 
         const mlResult = await axios.get(
-          `http://127.0.0.1:5000/api/top-ten-rate?user_id=${userId}`
+          `http://${process.env.host}:5000/api/top-ten-rate?user_id=${userId}`
         );
         const movieIds = mlResult.data
           .map((obj) => obj.movie_id);
