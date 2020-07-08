@@ -14,13 +14,16 @@ import gzip
 import shutil
 
 # 1. Load data
-# csv_file = '../input/the-movies/movies_metadata.csv'
-csv_file = '../input/tmdb-movie-metadata/tmdb_5000_movies.csv'
-# df2=pd.read_csv(csv_file)
+csv_file = '../input/the-movies/movies_metadata.csv'
+# csv_file = '../input/tmdb-movie-metadata/tmdb_5000_movies.csv'
+df2=pd.read_csv(csv_file)
+df2.drop(df2.columns.difference(['overview','id']), 1, inplace=True)
+# df2.to_csv('../output/the-movies/movies_metadata.csv')
+# df2.to_csv('../output/tmdb-movie-metadata/tmdb_5000_movies.csv')
 
 # df2['overview'].head(1)
 
-
+# quit()
 # 3. Export parts
 from ml_models.model2 import Model2
 
