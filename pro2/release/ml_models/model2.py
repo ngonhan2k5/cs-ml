@@ -5,14 +5,16 @@ class Model2:
     def __init__(self, movie_csv_path):
 
         df2=pd.read_csv(movie_csv_path, low_memory=False)
+        # df2['id'] = pd.to_numeric(df2['id'], errors='ignore')
         df2.drop(df2.columns.difference(['overview','id']), 1, inplace=True)
-        self.index_movieid = pd.Series(df2.index, index=df2['id'].apply(lambda x: int(x) if x.isdigit() else x)).drop_duplicates()
+        
+        self.index_movieid = pd.Series(df2.index, index=df2['id']).drop_duplicates()
         # self.cosine_sim = self.create_cosine_sim_matrix(df2)
         self.tfidf_matrix = self.create_tfidf_matrix(df2)
 
     def create_tfidf_matrix(self, df2):
         #Define a TF-IDF Vectorizer Object. Remove all english stop words such as 'the', 'a'
-        tfidf = TfidfVectorizer(stop_words='english', min_df=0.01)
+        tfidf = TfidfVectorizer(stop_words='english')
 
         #Replace NaN with an empty string
         df2['overview'] = df2['overview'].fillna('')
@@ -27,9 +29,9 @@ class Model2:
     
     def get_cosine_sim_matrix_movie(self, movie_id):
         from sklearn.metrics.pairwise import linear_kernel
-        if  movie_id in self.index_movieid.index:
+        if  str(movie_id) in self.index_movieid.index:
             print("Found movie_id")
-            idx = self.index_movieid[movie_id]
+            idx = self.index_movieid[str(movie_id)]
             cosine_sim = linear_kernel(self.tfidf_matrix[idx], self.tfidf_matrix)
             return cosine_sim[0]
         else:
