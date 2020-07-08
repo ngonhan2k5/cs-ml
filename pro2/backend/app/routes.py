@@ -1,8 +1,11 @@
 from app import app
 from app.models import MovieSchema, Movie
 from app.top_rate_for_user import TopRateMovieForUser
-from app.utils import check_input_valid, load_pickle, InvalidUsage
-from flask import abort, g, jsonify, request
+from app.utils import check_input_valid, load_pickle, InvalidUsage,\
+    retrive_small_movie_metadata, compute_cosine_similarity,\
+    convert_int, train_model
+
+from flask import abort, g, jsonify, request, Response
 import pickle
 import pandas as pd
 from surprise import Reader, Dataset, SVD
@@ -31,9 +34,10 @@ def get_top_ten_similar(movie_id):
     if movie_id.isdigit():
         try:
             model2 = load_pickle('ml_models/model2.pickle')
-            ret = { 
+            ret = {
                 'status': 'success',
-                'top-ten': model2.get_recommendations(int(movie_id)).index.tolist()
+                'top-ten': model2.get_recommendations(int(movie_id))
+                .index.tolist()
             }
             return jsonify(ret)
         except Exception as e:
@@ -43,8 +47,8 @@ def get_top_ten_similar(movie_id):
         raise InvalidUsage('Need movie id', status_code=400)
 
 
-@app.route('/api/rate/<user_id>/<movie_id>')
-def get_rate(user_id, movie_id):
+@app.route('/api/estimated_rate/<user_id>/<movie_id>')
+def get_estimated_rate(user_id, movie_id):
     rating_filename = 'ml_data/ratings_small.csv'
     reader = Reader()
     ratings = pd.read_csv(rating_filename)
@@ -105,23 +109,60 @@ def get_movies_by_ids():
         return movie_schema.jsonify(movies, many=True)
 
 
-@app.route('/api-example/create-pickle-file')
-def create_pickle_file():
-    data_dict = [862, 122036]
-    filename = 'example-pickle'
-    outfile = open(filename, 'wb')
-    pickle.dump(data_dict, outfile)
-    outfile.close()
-    return 'Create pickle file success'
+@app.route('/api/suggested_movies/<user_id>/<title>')
+def hybrid(user_id, title):
+    smd = retrive_small_movie_metadata()
+    cosine_sim = compute_cosine_similarity(smd)
+    model = train_model()
+    print("user_id " + user_id)
+    print("title " + title)
+    # The similar movies
+    smd = smd.reset_index(drop=True)
+    indices = pd.Series(smd.index, index=smd['title'])
+    idx = indices[title]
+
+    if not isinstance(idx.tolist(), int):
+        idx = idx.values[0]
+    sim_scores = list(enumerate(cosine_sim[int(idx)]))
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+    sim_scores = sim_scores[1:11]
+    movie_indices = [i[0] for i in sim_scores]
+    # movie_indices
+
+    # Compute the rating for each movie
+    links_small_file = 'ml_data/links_small.csv'
+    id_map = pd.read_csv(links_small_file)[['movieId', 'tmdbId']]
+    id_map = id_map[id_map['tmdbId'].notnull()]
+    id_map['tmdbId'] = id_map['tmdbId'].apply(convert_int)
+    id_map.columns = ['movieId', 'id']
+    id_map = id_map.merge(smd[['title', 'id']], on='id')
+    indices_map = id_map.set_index('id')
+
+    movies = smd.iloc[movie_indices][['title', 'id']]
+    movies['est'] = movies['id'].apply(lambda x: model.predict(
+        user_id, indices_map.loc[x]['movieId']).est)
+    movies = movies.sort_values('est', ascending=False)
+
+    return Response(movies.to_json(orient="records"),
+                    mimetype='application/json')
+
+# @app.route('/api-example/create-pickle-file')
+# def create_pickle_file():
+#     data_dict = [862, 122036]
+#     filename = 'example-pickle'
+#     outfile = open(filename, 'wb')
+#     pickle.dump(data_dict, outfile)
+#     outfile.close()
+#     return 'Create pickle file success'
 
 
-@app.route('/api-example/load-pickle')
-def load_pickle_file():
-    filename = 'example-pickle'
-    infile = open(filename, 'rb')
-    new_dict = pickle.load(infile)
-    infile.close()
-    return jsonify(new_dict)
+# @app.route('/api-example/load-pickle')
+# def load_pickle_file():
+#     filename = 'example-pickle'
+#     infile = open(filename, 'rb')
+#     new_dict = pickle.load(infile)
+#     infile.close()
+#     return jsonify(new_dict)
 
 
 @app.errorhandler(InvalidUsage)
