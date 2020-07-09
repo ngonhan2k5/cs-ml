@@ -14,7 +14,7 @@
 * Save to [ml_data/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2/backend/ml_data)
 * At release folder: run to train and create **model2.pickel** (to backend/ml_models folder) \
 ``` python model2-create```
-* One prepared sqlite file too big to submit to Sakai so need get from [movies_metadata.db](https://github.com/ngonhan2k5/cs-ml/blob/master/pro2/backend/app/)movies_metadata.db
+* One prepared sqlite file too big to submit to Sakai so need get from [movies_metadata.db](https://github.com/ngonhan2k5/cs-ml/blob/master/pro2/backend/app/movies_metadata.db)
 ### Build and up docker using docker-compose
 At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
 ```docker-compose build``` \
