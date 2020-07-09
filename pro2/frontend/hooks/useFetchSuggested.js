@@ -16,7 +16,7 @@ function useFetchSuggestedMovies({ userId, movieTitle }) {
       try {
 
         const mlResult = await axios.get(
-          `http://${process.env.host}/api/suggested_movies/${userId}/${movieTitle}`
+          `http://${process.env.host}:5000/api/suggested_movies/${userId}/${movieTitle}`
         );
         const movieIds = mlResult.data
           .map((obj) => obj.id);
