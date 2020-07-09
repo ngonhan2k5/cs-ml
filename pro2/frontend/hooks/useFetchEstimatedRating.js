@@ -17,7 +17,7 @@ function useFetchEstimatedRating({ movieId, userId }) {
       setData(null);
       try {
         const result = await axios.get(
-          `http://127.0.0.1:5000/api/estimated_rate/${userId}/${movieId}`
+          `http://${process.env.host}/api/estimated_rate/${userId}/${movieId}`
         );
 
         setData(result.data);
