@@ -2,10 +2,10 @@
 ## Docker Deployments:
 ### Download src from git https://github.com/ngonhan2k5/cs-ml/tree/master/pro2
 ### Get all data from kaggle: 
-* Down data from https://www.kaggle.com/rounakbanik/the-movies-dataset
-* Save to /backend/ml_data
+* Down all CSV data from https://www.kaggle.com/rounakbanik/the-movies-dataset
+* Save to [ml_data/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2/backend/ml_data)
 * At release folder: run to train and create **model2.pickel** (to backend/ml_models folder) \
-``` python model2-create``
+``` python model2-create```
 ### Build and up docker using docker-compose
 At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
 ```docker-compose build``` \
