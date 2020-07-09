@@ -1,13 +1,26 @@
 # MOVIE RECOMMENDATION SYSTEM
-## Front-end: Nextjs
+## Docker Deployments:
+### Download src from git https://github.com/ngonhan2k5/cs-ml/tree/master/pro2
+### Get all data from kaggle: 
+* Down data from https://www.kaggle.com/rounakbanik/the-movies-dataset
+* Save to /backend/ml_data
+* At release folder: run to train and create **model2.pickel** (to backend/ml_models folder) \
+``` python model2-create``
+## Build and up docker using docker-compose
+At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
+```docker-compose build``` \
+```docker-compose up```
+
+## Manual Deployment
+### Front-end: Nextjs
 to start, in frontend folder run\
 ```npm install```\
 ```npm run dev```
-## Back-end: Flask
+### Back-end: Flask
 to start, in backend folder run\
 ```python -m flask run ```
 
-## Dependences
+### Dependences
 * pip install flask_sqlalchemy
 * pip install flask_marshmallow
 * pip install surprise
@@ -28,7 +41,4 @@ Training is create similarity TD-TRD matrix and freeze into pickle file
 ### Release:
 * Web API will load pickle file and use to lookup
 
-## Docker:
-At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
-```docker-compose build``` \
-```docker-compose up```
+
