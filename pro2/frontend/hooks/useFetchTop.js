@@ -16,7 +16,7 @@ function useFetchTopMovies() {
       setData(null);
       try {
         const mlResult = await axios.get(
-          `http://localhost:5000/api/top-ten`
+          `http://${process.env.host}/api/top-ten`
         );
         const movieIds = mlResult.data.map((obj) => obj.id);
 
