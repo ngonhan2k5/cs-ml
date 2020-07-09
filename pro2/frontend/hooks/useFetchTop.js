@@ -8,9 +8,9 @@ function useFetchTopMovies() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    
+
     (async function () {
-      console.log("11" + 11);
+
       setLoading(true);
       setError(null);
       setData(null);
@@ -21,7 +21,6 @@ function useFetchTopMovies() {
         const movieIds = mlResult.data.map((obj) => obj.id);
 
         const dataList = await getMoviesByMovieIds(movieIds);
-          console.log(mlResult)
         setData(dataList);
         setLoading(false);
       } catch (e) {

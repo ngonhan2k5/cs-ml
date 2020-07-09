@@ -4,10 +4,9 @@ import useFetchEstimatedRating from "../hooks/useFetchEstimatedRating";
 
 function Rates(props) {
   const [data, loading, error] = useFetchEstimatedRating(props);
-  console.log(props);
+
   const movie = props.movie;
-  console.log(data);
-  console.log("error" + error);
+
   return (
     <div className="rate-area">
       <div style={{ display: "inline-block" }}>
