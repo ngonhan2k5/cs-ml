@@ -106,12 +106,16 @@ def get_estimated_rate(user_id, movie_id):
 def get_top_ten_rate_of_user():
     # return top 10 movies' with user_id
     user_id = int(request.args['user_id'])
-    print(user_id)
+
     topRateMovieForUser = TopRateMovieForUser(
         'ml_data/', 'ratings_small.csv', 'ml_models/',
         'top-user-movie-ratings-small.pkl')
-    # top_ten_rate = ['tt0114709', 'tt0113497']
-    return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
+
+    res = topRateMovieForUser.get_top_ten_rate_of_user(user_id)
+    if type(res) == str:
+        abort(404, description="User id not found")
+    else:
+        return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
 
 
 @app.route('/api/movies/<movie_id>')
