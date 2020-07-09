@@ -1,12 +1,13 @@
 # [MOVIE RECOMMENDATION SYSTEM](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2)
-## API:
-| Recommendation Technical                  | Objective                        | APIs                                                                |
-|-------------------------------------------|----------------------------------|---------------------------------------------------------------------|
-| Demographic                               | top 10 rated                     | http://104.154.17.226:5000/api/top-ten                              |
-| Content based                             | item-item                        | http://104.154.17.226:5000/api/top-ten-similar/49026                |
-| Collaborative filtering                   | user-movie ratings               | http://104.154.17.226:5000/api/top-ten-rate?user_id=2               |
-| Content based and Collaborative filtering | get_suggested_movies             | http://104.154.17.226:5000/api/suggested_movies/1/Teenage%20Caveman |
-| Collaborative filtering                   | estimated_rate_by_userId_movieId | http://104.154.17.226:5000/api/estimated_rate/1/218                 |
+## Contents:
+| Contents                                  | Objective                        | Link and APIs                                                                        |
+|-------------------------------------------|----------------------------------|--------------------------------------------------------------------------------------|
+| EDA (content based)                       | Data explore                     | https://github.com/ngonhan2k5/cs-ml/blob/master/pro2/notebook/eda_content_base.ipynb |
+| Demographic                               | top 10 rated                     | http://104.154.17.226:5000/api/top-ten                                               |
+| Content based                             | item-item                        | http://104.154.17.226:5000/api/top-ten-similar/49026                                 |
+| Collaborative filtering                   | user-movie ratings               | http://104.154.17.226:5000/api/top-ten-rate?user_id=2                                |
+| Content based and Collaborative filtering | get_suggested_movies             | http://104.154.17.226:5000/api/suggested_movies/1/Teenage%20Caveman                  |
+| Collaborative filtering                   | estimated_rate_by_userId_movieId | http://104.154.17.226:5000/api/estimated_rate/1/218                                  |            |
 ## Docker Deployments:
 ### Source: Checkout or Download src from git https://github.com/ngonhan2k5/cs-ml/tree/master/pro2
 ### Data: Get all data from kaggle: 
