@@ -85,8 +85,12 @@ def get_top_ten_rate_of_user():
     topRateMovieForUser = TopRateMovieForUser(
         'ml_data/', 'ratings_small.csv', 'ml_models/',
         'top-user-movie-ratings-small.pkl')
-    # top_ten_rate = ['tt0114709', 'tt0113497']
-    return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
+
+    res = topRateMovieForUser.get_top_ten_rate_of_user(user_id)
+    if type(res) == str:
+        abort(404, description="User id not found")
+    else:
+        return jsonify(topRateMovieForUser.get_top_ten_rate_of_user(user_id))
 
 
 @app.route('/api/movies/<movie_id>')
