@@ -6,7 +6,7 @@
 * Save to /backend/ml_data
 * At release folder: run to train and create **model2.pickel** (to backend/ml_models folder) \
 ``` python model2-create``
-## Build and up docker using docker-compose
+### Build and up docker using docker-compose
 At [pro2/](https://github.com/ngonhan2k5/cs-ml/tree/master/pro2) \
 ```docker-compose build``` \
 ```docker-compose up```
