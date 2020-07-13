@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #######################################################
 # Ex: python yourvote.py Questions.txt --vote XXXXXX  #
+# Questions.txt: Open .pdf and save as .txt           #
+# XXXXXX: your StudentId                              #
 #######################################################
 import csv, argparse, re
 
