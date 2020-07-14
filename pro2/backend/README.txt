@@ -7,7 +7,7 @@ Team 5 members:
 - Manh Cuong Nguyen
 - Mohamed Hussein Abdelhalim Mohamed
 
-This link lead  the zip file of our project: https://drive.google.com/file/d/1oOKGunaV-c5JCQZIElq2QlPoaljGRm5n/view?usp=sharing
+This link lead  the zip file of our project: https://drive.google.com/file/d/12-81e4vVcJJxH9oG5rQxt95lNZTPV5gF/view?usp=sharing
 It includes 2 main folders are frontend and backend.
 We also prepare docker compose inside so that you can run the project in docker 
 This is our project that deployed online http://104.154.17.226:3000/

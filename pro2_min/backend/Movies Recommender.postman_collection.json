@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "a6b5b688-a2b3-47e8-b988-89daed7f9189",
+		"name": "Movies Recommender",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get_top_ten_rate_by_user_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/top-ten-rate?user_id=2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"top-ten-rate"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_movies_by_ids",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/movies?movieIds=862&movieIds=122036",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"movies"
+					],
+					"query": [
+						{
+							"key": "movieIds",
+							"value": "862"
+						},
+						{
+							"key": "movieIds",
+							"value": "122036"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_top_ten_similar_by_movie_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/top-ten-similar/862",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"top-ten-similar",
+						"862"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_movie_by_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/movies/954",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"movies",
+						"954"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_suggested_movies_by_userId_and_movie_title",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/suggested_movies/1/Teenage%20Caveman",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"suggested_movies",
+						"1",
+						"Teenage%20Caveman"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estimated_rate_by_userId_movieId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/estimated_rate/1/218",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"estimated_rate",
+						"1",
+						"218"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_top_ten_movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/top-ten",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"top-ten"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
