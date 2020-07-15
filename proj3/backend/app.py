@@ -1,17 +1,17 @@
 import base64
 import numpy as np
 import io
-from PIL import Image, ImageFile
-import keras
-from keras import backend as K
-from keras.models import Sequential
-from keras.preprocessing.image import ImageDataGenerator
+from PIL import Image
+# import keras
+# from keras import backend as K
+# from keras.models import Sequential
+# from keras.preprocessing.image import ImageDataGenerator
 from keras.preprocessing.image import img_to_array
 from flask import request
 from flask import jsonify
 from flask import Flask
 from tensorflow.keras.models import load_model
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
@@ -42,6 +42,7 @@ model_mobilenet = load_model('../models/mobilenet_model.h5')
 
 print(" * Model loaded!")
 
+
 def get_image_from_message(message):
     encoded = message['image']
     decoded = base64.b64decode(encoded)
@@ -71,8 +72,9 @@ def predict_vgg16():
     }
     return jsonify(response)
 
+
 @app.route("/api/predict_densenet121", methods=["POST"])
-def predict_vgg16():
+def predict_densenet121():
     message = request.get_json(force=True)
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -85,8 +87,9 @@ def predict_vgg16():
     }
     return jsonify(response)
 
+
 @app.route("/api/predict_vgg19", methods=["POST"])
-def predict_vgg16():
+def predict_vgg19():
     message = request.get_json(force=True)
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
@@ -98,6 +101,7 @@ def predict_vgg16():
         }
     }
     return jsonify(response)
+
 
 @app.route("/api/predict_mobilenet", methods=["POST"])
 def predict_mobilenet():
