@@ -13,6 +13,7 @@ from flask import Flask
 from tensorflow.keras.models import load_model
 from flask_cors import CORS
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -31,6 +32,12 @@ def preprocess_image(image, target_size):
     image = img_to_array(image)
     image = np.expand_dims(image, axis=0)
     return image
+
+
+def loadHistory(filename):
+    with open(filename) as history:
+        data = json.load(history)
+        return data
 
 
 print(" * Loading Keras model...")
@@ -115,4 +122,31 @@ def predict_mobilenet():
             'cat': prediction[0][1]
         }
     }
+    return jsonify(response)
+
+
+@app.route("/api/models", methods=["GET"])
+def get_models():
+    response = [
+        {
+            'models': 'fine-tuned-vgg16',
+            'summary': json.loads(model_vgg16.to_json()),
+            'history': loadHistory('../models/history_vgg16.json')
+        },
+        {
+            'models': 'fine-tuned-vgg19',
+            'summary': json.loads(model_vgg19.to_json()),
+            'history': loadHistory('../models/history_vgg19.json')
+        },
+        {
+            'models': 'fine-tuned-densenet121',
+            'summary': json.loads(model_densenet121.to_json()),
+            'history': loadHistory('../models/history_densenet121.json')
+        },
+        {
+            'models': 'fine-tuned-mobilenet',
+            'summary': json.loads(model_mobilenet.to_json()),
+            'history': loadHistory('../models/history_mobilenet.json')
+        },
+    ]
     return jsonify(response)
