@@ -35,8 +35,10 @@ def preprocess_image(image, target_size):
 
 print(" * Loading Keras model...")
 # get_model()
-model_vgg16 = load_model('../models/fine_tuned_vgg16.h5')
-model_mobilenet = load_model('../models/fine_tuned_mobilenet.h5')
+model_vgg16 = load_model('../models/vgg16_model.h5')
+model_vgg19 = load_model('../models/vgg19_model.h5')
+model_densenet121 = load_model('../models/DENSENET121_model.h5')
+model_mobilenet = load_model('../models/mobilenet_model.h5')
 
 print(" * Model loaded!")
 
@@ -61,6 +63,34 @@ def predict_vgg16():
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
     prediction = model_vgg16.predict(processed_image).tolist()
+    response = {
+        'prediction': {
+            'dog': prediction[0][0],
+            'cat': prediction[0][1]
+        }
+    }
+    return jsonify(response)
+
+@app.route("/api/predict_densenet121", methods=["POST"])
+def predict_vgg16():
+    message = request.get_json(force=True)
+    image = get_image_from_message(message)
+    processed_image = preprocess_image(image, target_size=(224, 224))
+    prediction = model_densenet121.predict(processed_image).tolist()
+    response = {
+        'prediction': {
+            'dog': prediction[0][0],
+            'cat': prediction[0][1]
+        }
+    }
+    return jsonify(response)
+
+@app.route("/api/predict_vgg19", methods=["POST"])
+def predict_vgg16():
+    message = request.get_json(force=True)
+    image = get_image_from_message(message)
+    processed_image = preprocess_image(image, target_size=(224, 224))
+    prediction = model_vgg19.predict(processed_image).tolist()
     response = {
         'prediction': {
             'dog': prediction[0][0],
