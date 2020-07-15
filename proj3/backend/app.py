@@ -10,10 +10,9 @@ from keras.preprocessing.image import img_to_array
 from flask import request
 from flask import jsonify
 from flask import Flask
-from tensorflow.keras.models import load_model
 from flask_cors import CORS
 import os
-import json
+from model import Model
 
 app = Flask(__name__)
 CORS(app)
@@ -34,18 +33,23 @@ def preprocess_image(image, target_size):
     return image
 
 
-def loadHistory(filename):
-    with open(filename) as history:
-        data = json.load(history)
-        return data
-
-
 print(" * Loading Keras model...")
 # get_model()
-model_vgg16 = load_model('../models/vgg16_model.h5')
-model_vgg19 = load_model('../models/vgg19_model.h5')
-model_densenet121 = load_model('../models/DENSENET121_model.h5')
-model_mobilenet = load_model('../models/mobilenet_model.h5')
+model_vgg16 = Model('fine-tuned-vgg16',
+                    '../models/vgg16_model.h5',
+                    '../models/history_vgg16.json')
+
+model_vgg19 = Model('fine-tuned-vgg19',
+                    '../models/vgg19_model.h5',
+                    '../models/history_vgg19.json')
+
+model_densenet121 = Model('fine-tuned-densenet121',
+                          '../models/densenet121_model.h5',
+                          '../models/history_densenet121.json')
+                          
+model_mobilenet = Model('fine-tuned-mobilenet',
+                        '../models/mobilenet_model.h5',
+                        '../models/history_mobilenet.json')
 
 print(" * Model loaded!")
 
@@ -85,7 +89,7 @@ def predict_densenet121():
     message = request.get_json(force=True)
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
-    prediction = model_densenet121.predict(processed_image).tolist()
+    prediction = model_densenet121.model.predict(processed_image).tolist()
     response = {
         'prediction': {
             'dog': prediction[0][0],
@@ -100,7 +104,7 @@ def predict_vgg19():
     message = request.get_json(force=True)
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
-    prediction = model_vgg19.predict(processed_image).tolist()
+    prediction = model_vgg19.model.predict(processed_image).tolist()
     response = {
         'prediction': {
             'dog': prediction[0][0],
@@ -115,7 +119,7 @@ def predict_mobilenet():
     message = request.get_json(force=True)
     image = get_image_from_message(message)
     processed_image = preprocess_image(image, target_size=(224, 224))
-    prediction = model_mobilenet.predict(processed_image).tolist()
+    prediction = model_mobilenet.model.predict(processed_image).tolist()
     response = {
         'prediction': {
             'dog': prediction[0][0],
@@ -129,24 +133,28 @@ def predict_mobilenet():
 def get_models():
     response = [
         {
-            'models': 'fine-tuned-vgg16',
-            'summary': json.loads(model_vgg16.to_json()),
-            'history': loadHistory('../models/history_vgg16.json')
+            'name': model_vgg16.name,
+            'summary': model_vgg16.summary,
+            'history': model_vgg16.history,
+            'size': model_vgg16.size
         },
         {
-            'models': 'fine-tuned-vgg19',
-            'summary': json.loads(model_vgg19.to_json()),
-            'history': loadHistory('../models/history_vgg19.json')
+            'name': model_vgg19.name,
+            'summary': model_vgg19.summary,
+            'history': model_vgg19.history,
+            'size': model_vgg19.size
         },
         {
-            'models': 'fine-tuned-densenet121',
-            'summary': json.loads(model_densenet121.to_json()),
-            'history': loadHistory('../models/history_densenet121.json')
+            'name': model_densenet121.name,
+            'summary': model_densenet121.summary,
+            'history': model_densenet121.history,
+            'size': model_densenet121.size
         },
         {
-            'models': 'fine-tuned-mobilenet',
-            'summary': json.loads(model_mobilenet.to_json()),
-            'history': loadHistory('../models/history_mobilenet.json')
+            'name': model_mobilenet.name,
+            'summary': model_mobilenet.summary,
+            'history': model_mobilenet.history,
+            'size': model_mobilenet.size
         },
     ]
     return jsonify(response)
