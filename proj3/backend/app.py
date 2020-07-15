@@ -2,10 +2,6 @@ import base64
 import numpy as np
 import io
 from PIL import Image
-# import keras
-# from keras import backend as K
-# from keras.models import Sequential
-# from keras.preprocessing.image import ImageDataGenerator
 from keras.preprocessing.image import img_to_array
 from flask import request
 from flask import jsonify
@@ -16,12 +12,6 @@ from model import Model
 
 app = Flask(__name__)
 CORS(app)
-
-
-# def get_model():
-#     global model
-#     model = load_model('../models/fine_tuned_vgg.h5')
-#     print(" * Model loaded!")
 
 
 def preprocess_image(image, target_size):
@@ -46,7 +36,7 @@ model_vgg19 = Model('fine-tuned-vgg19',
 model_densenet121 = Model('fine-tuned-densenet121',
                           '../models/densenet121_model.h5',
                           '../models/history_densenet121.json')
-                          
+
 model_mobilenet = Model('fine-tuned-mobilenet',
                         '../models/mobilenet_model.h5',
                         '../models/history_mobilenet.json')
