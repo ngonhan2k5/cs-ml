@@ -30,9 +30,12 @@ export default function Home() {
           {data.length > 0 || camImageSrc.length > 0? (
             <div className="mt-5 results">
               <h1>Results</h1>
-              <h2>Class Activation Map</h2>
+              
               {camImageSrc.length > 0 && (
+                <div>
+                  <h2>Class Activation Map</h2>
                 <img src={camImageSrc} />
+                </div>
               ) }
               <h2>Prediction results</h2>
               <ResultBarChart data={data} />
