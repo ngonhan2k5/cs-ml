@@ -53,10 +53,12 @@ def get_image_from_message(message, image_name):
     filename = 'tmp/'+image_name+'.' + str(time.time_ns()) + '.jpg'
     with open(filename, 'wb') as f:
         f.write(decoded)
-    f = open(filename, 'rb')
-    f.seek(15, 0)
+
     b = io.BytesIO()
-    b.write(f.read())
+    with open(filename, 'rb') as f2:
+        f2.seek(15, 0)
+        b.write(f2.read())
+
     image = Image.open(b)
     os.remove(filename)
     return image
@@ -72,12 +74,15 @@ def cam_action():
     image = get_image_from_message(message, model_vgg16.name)
     # processed_image = preprocess_image(image, target_size=(224, 224))
     start_time = time.time()
-    cam(image, f_name='cam.jpg')
+    f_name = 'cam.' + str(time.time_ns()) + '.jpg'
+    cam(image, f_name=f_name)
     execution_time = time.time() - start_time
-    with open('cam.jpg', "rb") as image_file:
+    with open(f_name, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read())
+
+    os.remove(f_name)
     response = {
-        'ret_img_base64': encoded_string,
+        'ret_img_base64': encoded_string.decode('utf-8'),
         'execution_time': execution_time
     }
     return jsonify(response)

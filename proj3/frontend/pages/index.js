@@ -8,6 +8,7 @@ import ResultPieChart from "../components/ResultPieChart";
 
 export default function Home() {
   const [data, setData] = useState([]);
+  const [camImageSrc, setCamImageSrc] = useState([]);
   const [exectionTimes, setExectionTimes] = useState([]);
   useEffect(() => {
     console.log(data);
@@ -22,12 +23,17 @@ export default function Home() {
           <ImagePredictForm
             setData={setData}
             setExectionTimes={setExectionTimes}
+            setCamImageSrc={setCamImageSrc}
           ></ImagePredictForm>
         </div>
         <div className="col-12 col-md-12">
-          {data.length > 0 ? (
+          {data.length > 0 || camImageSrc.length > 0? (
             <div className="mt-5 results">
               <h1>Results</h1>
+              <h2>Class Activation Map</h2>
+              {camImageSrc.length > 0 && (
+                <img src={camImageSrc} />
+              ) }
               <h2>Prediction results</h2>
               <ResultBarChart data={data} />
               <h2>Execution time results (unit: seconds)</h2>

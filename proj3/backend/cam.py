@@ -10,6 +10,9 @@ from skimage.transform import resize
 
 K.clear_session()
 
+import keras.backend.tensorflow_backend as tb
+tb._SYMBOLIC_SCOPE.value = True
+
 def plot_map1(grads, im, predictions):
 #     fig, axes = plt.subplots(1,2,figsize=(14,5))
     fig, ax = plt.subplots(figsize=(14,6))
@@ -57,6 +60,7 @@ def cam(org_img, model=VGG16(weights='imagenet'), f_name='foo.png'):
     x = preprocess_input(x)
     preds = model.predict(x)
     predictions = pd.DataFrame(decode_predictions(preds, top=3)[0],columns=['col1','category','probability']).iloc[:,1:]
+    print(predictions)
     argmax = np.argmax(preds[0])
     output = model.output[:, argmax]
     last_conv_layer = model.get_layer('block5_conv3')

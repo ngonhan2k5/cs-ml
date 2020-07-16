@@ -17,6 +17,7 @@ export default function ImagePredictForm(props) {
       let dataURL = reader.result;
       setImageSrc(dataURL);
       const base64Image = dataURL.replace("data:image/png;base64,", "");
+      // const base64Image = dataURL.substr(22);
       setImageBase64(base64Image);
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -37,7 +38,7 @@ export default function ImagePredictForm(props) {
     // console.log(response);
     // console.log("response" + response);
     const data = response.data;
-
+    data.type=predict
     return data;
   };
 
@@ -52,7 +53,13 @@ export default function ImagePredictForm(props) {
     try {
       props.setData([]);
       const fetchDataList = predicts.map((predict) => fetchData(predict));
-      const dataList = await Promise.all(fetchDataList);
+      let dataList = await Promise.all(fetchDataList);
+      const cam = dataList.filter(i=>i.type=="cam");
+      console.log(111,cam)
+      if (cam.length && cam[0].ret_img_base64){
+        props.setCamImageSrc("data:image/png;base64,"+cam[0].ret_img_base64);
+      }
+      dataList = dataList.filter(i=>i.type!="cam");
       const newDataList = [];
       const newExectionTimeList = [];
       for (let i = 0; i < dataList.length; i++) {
@@ -93,6 +100,7 @@ export default function ImagePredictForm(props) {
     "predict_vgg19",
     "predict_densenet121",
     "predict_mobilenet",
+    "cam",
   ];
   return (
     <div>
