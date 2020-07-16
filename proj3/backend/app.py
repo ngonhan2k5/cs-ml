@@ -29,20 +29,20 @@ print(" * Loading Keras model...")
 # get_model()
 
 model_vgg16 = Model('fine-tuned-vgg16',
-                    '../models/vgg16_model.h5',
-                    '../models/history_vgg16.json')
+                    'models/vgg16_model.h5',
+                    'models/history_vgg16.json')
 
 model_vgg19 = Model('fine-tuned-vgg19',
-                    '../models/vgg19_model.h5',
-                    '../models/history_vgg19.json')
+                    'models/vgg19_model.h5',
+                    'models/history_vgg19.json')
 
 model_densenet121 = Model('fine-tuned-densenet121',
-                          '../models/DENSENET121_model.h5',
-                          '../models/history_densenet121.json')
+                          'models/DENSENET121_model.h5',
+                          'models/history_densenet121.json')
 
 model_mobilenet = Model('fine-tuned-mobilenet',
-                        '../models/mobilenet_model.h5',
-                        '../models/history_mobilenet.json')
+                        'models/mobilenet_model.h5',
+                        'models/history_mobilenet.json')
 
 print(" * Model loaded!")
 
