@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import 'nprogress/nprogress.css';
 
 export default function MyApp({ Component, pageProps }) {
   return (
