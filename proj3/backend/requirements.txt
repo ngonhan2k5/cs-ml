@@ -1,5 +1,4 @@
 tensorflow==2.0.0
-json==2.0.9
 numpy==1.18.5
 PIL==7.2.0
 keras==2.3.1
