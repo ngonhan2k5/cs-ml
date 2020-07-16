@@ -15,7 +15,7 @@ ENTRYPOINT ["python"]
 
 EXPOSE 5000
 
-CMD ["-m", "flask", "run", "--host=0.0.0.0"]
+CMD ["-m", "flask", "run", "--host=0.0.0.0", "--without-threads"]
 
 
 
