@@ -10,7 +10,7 @@ from flask_cors import CORS
 import os
 from model import Model
 import time
-
+from cam import cam
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +27,7 @@ def preprocess_image(image, target_size):
 
 print(" * Loading Keras model...")
 # get_model()
+
 model_vgg16 = Model('fine-tuned-vgg16',
                     '../models/vgg16_model.h5',
                     '../models/history_vgg16.json')
@@ -49,8 +50,8 @@ print(" * Model loaded!")
 def get_image_from_message(message, image_name):
     encoded = message['image']
     decoded = base64.b64decode(encoded)
-    filename = image_name + '.jpg'
-    with open(filename, 'wb') as f:
+    filename = image_name + str(time.time_ns) + '.jpg'
+    with open('tmp/'+filename, 'wb') as f:
         f.write(decoded)
     f = open(filename, 'rb')
     f.seek(15, 0)
@@ -60,6 +61,26 @@ def get_image_from_message(message, image_name):
     os.remove(filename)
     return image
 
+def image_to_base64(barr):
+    return base64.b64encode(barr)
+
+
+
+@app.route("/api/cam", methods=["POST"])
+def cam_action():
+    message = request.get_json(force=True)
+    image = get_image_from_message(message, model_vgg16.name)
+    # processed_image = preprocess_image(image, target_size=(224, 224))
+    start_time = time.time()
+    cam(image, f_name='cam.jpg')
+    execution_time = time.time() - start_time
+    with open('cam.jpg', "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    response = {
+        'ret_img_base64': encoded_string,
+        'execution_time': execution_time
+    }
+    return jsonify(response)
 
 @app.route("/api/predict_vgg16", methods=["POST"])
 def predict_vgg16():
