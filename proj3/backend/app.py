@@ -50,8 +50,8 @@ print(" * Model loaded!")
 def get_image_from_message(message, image_name):
     encoded = message['image']
     decoded = base64.b64decode(encoded)
-    filename = image_name + str(time.time_ns()) + '.jpg'
-    with open('tmp/'+filename, 'wb') as f:
+    filename = 'tmp/'+image_name+'.' + str(time.time_ns()) + '.jpg'
+    with open(filename, 'wb') as f:
         f.write(decoded)
     f = open(filename, 'rb')
     f.seek(15, 0)
