@@ -9,6 +9,8 @@ from flask import Flask
 from flask_cors import CORS
 import os
 from model import Model
+import time
+
 
 app = Flask(__name__)
 CORS(app)
@@ -34,7 +36,7 @@ model_vgg19 = Model('fine-tuned-vgg19',
                     '../models/history_vgg19.json')
 
 model_densenet121 = Model('fine-tuned-densenet121',
-                          '../models/densenet121_model.h5',
+                          '../models/DENSENET121_model.h5',
                           '../models/history_densenet121.json')
 
 model_mobilenet = Model('fine-tuned-mobilenet',
@@ -44,10 +46,10 @@ model_mobilenet = Model('fine-tuned-mobilenet',
 print(" * Model loaded!")
 
 
-def get_image_from_message(message):
+def get_image_from_message(message, image_name):
     encoded = message['image']
     decoded = base64.b64decode(encoded)
-    filename = 'some_image.jpg'
+    filename = image_name + '.jpg'
     with open(filename, 'wb') as f:
         f.write(decoded)
     f = open(filename, 'rb')
@@ -62,14 +64,17 @@ def get_image_from_message(message):
 @app.route("/api/predict_vgg16", methods=["POST"])
 def predict_vgg16():
     message = request.get_json(force=True)
-    image = get_image_from_message(message)
+    image = get_image_from_message(message, model_vgg16.name)
     processed_image = preprocess_image(image, target_size=(224, 224))
-    prediction = model_vgg16.predict(processed_image).tolist()
+    start_time = time.time()
+    prediction = model_vgg16.model.predict(processed_image).tolist()
+    execution_time = time.time() - start_time
     response = {
         'prediction': {
             'dog': prediction[0][0],
             'cat': prediction[0][1]
-        }
+        },
+        'execution_time': execution_time
     }
     return jsonify(response)
 
@@ -77,14 +82,17 @@ def predict_vgg16():
 @app.route("/api/predict_densenet121", methods=["POST"])
 def predict_densenet121():
     message = request.get_json(force=True)
-    image = get_image_from_message(message)
+    image = get_image_from_message(message,  model_densenet121.name)
     processed_image = preprocess_image(image, target_size=(224, 224))
+    start_time = time.time()
     prediction = model_densenet121.model.predict(processed_image).tolist()
+    execution_time = time.time() - start_time
     response = {
         'prediction': {
             'dog': prediction[0][0],
             'cat': prediction[0][1]
-        }
+        },
+        'execution_time': execution_time
     }
     return jsonify(response)
 
@@ -92,14 +100,17 @@ def predict_densenet121():
 @app.route("/api/predict_vgg19", methods=["POST"])
 def predict_vgg19():
     message = request.get_json(force=True)
-    image = get_image_from_message(message)
+    image = get_image_from_message(message, model_vgg19.name)
     processed_image = preprocess_image(image, target_size=(224, 224))
+    start_time = time.time()
     prediction = model_vgg19.model.predict(processed_image).tolist()
+    execution_time = time.time() - start_time
     response = {
         'prediction': {
             'dog': prediction[0][0],
             'cat': prediction[0][1]
-        }
+        },
+        'execution_time': execution_time
     }
     return jsonify(response)
 
@@ -107,14 +118,17 @@ def predict_vgg19():
 @app.route("/api/predict_mobilenet", methods=["POST"])
 def predict_mobilenet():
     message = request.get_json(force=True)
-    image = get_image_from_message(message)
+    image = get_image_from_message(message,  model_mobilenet.name)
     processed_image = preprocess_image(image, target_size=(224, 224))
+    start_time = time.time()
     prediction = model_mobilenet.model.predict(processed_image).tolist()
+    execution_time = time.time() - start_time
     response = {
         'prediction': {
             'dog': prediction[0][0],
             'cat': prediction[0][1]
-        }
+        },
+        'execution_time': execution_time
     }
     return jsonify(response)
 
