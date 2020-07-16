@@ -3,7 +3,7 @@ import Head from "next/head";
 import axios from "axios";
 import NProgress from "nprogress"; //nprogress module
 
-import Checkbox from "./Checkbox";
+import Checkbox from "./CheckBox";
 
 export default function ImagePredictForm(props) {
   const imageRef = useRef();
